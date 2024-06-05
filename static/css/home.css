@@ -1,0 +1,59 @@
+.carousel-inner:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+.carousel-caption {
+    z-index: 1;
+}
+
+#about-bem {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#about-ukm {
+    font-size: 24px;
+}
+
+#about-img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+#about-content {
+    font-size: 24px;    
+    border-radius: 10px;
+}
+
+#visi-misi-img {
+    width: 80%;
+}
+
+#kabinet-img {
+    width: 100%;
+}
+
+#kabinet-logo {
+    font-size: 60px;
+}
+
+#kabinet-nama {
+    font-size: 24px;
+}
+
+#logo-title {
+    font-size: 50px;
+    margin-bottom: 10%;
+}
+
+#logo-content {
+    font-size: 24px;
+    text-align: justify;
+}

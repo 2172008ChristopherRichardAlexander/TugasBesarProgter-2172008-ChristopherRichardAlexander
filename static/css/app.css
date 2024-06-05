@@ -1,0 +1,8 @@
+body {
+    font-family: 'Poppins';
+}
+
+.nav-link {
+    font-size: 30px;
+    font-weight: bold;
+}
