@@ -1,13 +1,12 @@
-@extends('layouts.master')
+{% extends "layouts/master.html" %}
 
-@section('content')
-    <link rel="stylesheet" href="{{ asset('css/pendaftaran.css') }}">
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pendaftaran.css') }}">
     <div class="container d-flex justify-content-center my-4">
         <div class="card">
             <h3 class="card-header">Form Pendaftaran Kepengurusan BEM</h3>
             <div class="card-body">
                 <form enctype="multipart/form-data" method="post" action="/recruitment">
-                    @csrf
                     <div class="form-group">
                         <label for="name">Nama Lengkap:</label> <span class="text-danger">*</span>
                         <input type="text" class="form-control" name="name" id="name" placeholder="Input Nama"
@@ -48,12 +47,14 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="faculty_id">Fakultas:</label> <span class="text-danger">*</span>
-                        <select name="faculty_id" id="faculty_id" class="form-select" required>
+                        {# 
+                            select name="faculty_id" id="faculty_id" class="form-select" required>
                             <option selected disabled>Pilihan Fakultas</option>
                             @foreach ($faculties as $faculty)
                                 <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
                             @endforeach
                         </select>
+                         #}
                     </div>
                     <div class="form-group mt-3">
                         <label for="angkatan">Angkatan:</label> <span class="text-danger">*</span>
@@ -68,10 +69,12 @@
                         <label for="department_id">Pilihan Departemen 1:</label> <span class="text-danger">*</span>
                         <select name="department_id" id="department_id" class="form-select" required>
                             <option selected disabled>Pilihan Departemen</option>
-                            @foreach ($departments as $department)
-                                @if ($loop->first) @continue @endif
-                                <option value="{{ $department->id }}">{{ $department->name }}</option>
-                            @endforeach
+                            {# 
+                                foreach ($departments as $department)
+                                    @if ($loop->first) @continue @endif
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                @endforeach
+                             #}
                         </select>
                         <div class="mt-2">
                             <label for="alasan">Alasan Memilih Departemen Tersebut:</label> <span
@@ -83,10 +86,13 @@
                         <label for="department_id2">Pilihan Departemen 2:</label> <span class="text-danger">*</span>
                         <select name="department_id2" id="department_id2" class="form-select" required>
                             <option selected disabled>Pilihan Departemen</option>
-                            @foreach ($departments as $department)
-                            @if ($loop->first) @continue @endif
-                                <option value="{{ $department->id }}">{{ $department->name }}</option>
-                            @endforeach
+                            {# 
+                                @foreach ($departments as $department)
+                                @if ($loop->first) @continue @endif
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                @endforeach
+                             #}
+                
                         </select>
                         <div class="mt-2">
                             <label for="alasan2">Alasan Memilih Departemen Tersebut:</label> <span
@@ -176,4 +182,4 @@
             </div>
         </div>
     </div>
-@endsection
+{% endblock %}

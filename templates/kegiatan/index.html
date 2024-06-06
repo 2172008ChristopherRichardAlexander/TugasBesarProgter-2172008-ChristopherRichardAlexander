@@ -1,18 +1,22 @@
-@extends('layouts.master')
+{% extends "layouts/master.html" %}
 
-@section('content')
+{% block content %}
     <div class="container my-4">
-        @if (session()->has('success'))
-            <div class="alert alert-primary" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
-        @auth
-            <div class="d-flex justify-content-end mb-3">
-                <a href="/kegiatan/create" class="btn btn-primary">Tambah Kegiatan</a>
-            </div>
-        @endauth
+        {# 
+
+            @if (session()->has('success'))
+                <div class="alert alert-primary" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @auth
+                <div class="d-flex justify-content-end mb-3">
+                    <a href="/kegiatan/create" class="btn btn-primary">Tambah Kegiatan</a>
+                </div>
+            @endauth
+         #}
         <div class="row d-flex justify-content-center">
+        {# 
             @foreach ($kegiatans as $kegiatan)
                 <div class="col-md-10 mx-4 my-3">
                     <div class="card">
@@ -64,6 +68,7 @@
                     </div>
                 </div>
             @endforeach
+         #}
         </div>
     </div>
-@endsection
+{% endblock %}
