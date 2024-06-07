@@ -26,4 +26,6 @@ class User(Base):
             'department_id': self.department_id,
             'faculty_id': self.faculty_id
         }
+    
+    
 
