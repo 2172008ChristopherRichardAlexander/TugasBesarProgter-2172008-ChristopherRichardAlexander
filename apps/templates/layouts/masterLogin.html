@@ -35,13 +35,13 @@
                             class="btn px-3 me-1 text-light">
                             Home
                         </button></a>
-                    <a data-mdb-ripple-init href="/struktur" type="button" class="btn px-3 me-1 text-light">
+                    <a data-mdb-ripple-init href="{{ url_for('structure.structure') }}" type="button" class="btn px-3 me-1 text-light">
                         Struktur
                     </a>
-                    <a data-mdb-ripple-init href="/kegiatan" type="button" class="btn px-3 me-1 text-light">
+                    <a data-mdb-ripple-init href="{{ url_for('activity.activity') }}" type="button" class="btn px-3 me-1 text-light">
                         Kegiatan
                     </a>
-                    <a data-mdb-ripple-init href="/kajians" type="button" class="btn px-3 me-2 text-light">
+                    <a data-mdb-ripple-init href="{{ url_for('review.review') }}" type="button" class="btn px-3 me-2 text-light">
                         Kajian
                     </a>
                     <a data-mdb-ripple-init href="{{ url_for('register.register') }}" type="button" class="btn px-3 me-2 text-light">

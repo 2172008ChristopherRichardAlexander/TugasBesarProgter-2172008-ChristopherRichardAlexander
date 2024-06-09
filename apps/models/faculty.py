@@ -1,10 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
+from apps import db
 
-Base = declarative_base()
 
-class Faculty(Base):
+class Faculty(db.Model):
     __tablename__ = 'faculties'
 
     id = Column(Integer, primary_key=True, autoincrement=True)

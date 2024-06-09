@@ -1,10 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from apps import db
 
-Base = declarative_base()
 
-class Recruitment(Base):
+class Recruitment(db.Model):
     __tablename__ = 'recruitments'
 
     id = Column(Integer, primary_key=True, autoincrement=True)

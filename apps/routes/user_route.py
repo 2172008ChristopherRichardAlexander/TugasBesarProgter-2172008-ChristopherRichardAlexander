@@ -1,20 +1,20 @@
 from flask import Blueprint, request, jsonify
-from models.user import User
-from app import db
+from apps.models.user import User
+from apps import db
 
-bp = Blueprint('user', __name__)
+user_bp = Blueprint('user', __name__)
 
-@bp.route('/users', methods=['GET'])
+@user_bp.route('/users', methods=['GET'])
 def get_all_users():
     users = User.query.all()
     return jsonify([user.json() for user in users])
 
-@bp.route('/users/<int:id>', methods=['GET'])
+@user_bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get_or_404(id)
     return jsonify(user.json())
 
-@bp.route('/users', methods=['POST'])
+@user_bp.route('/users', methods=['POST'])
 def create_user():
     data = request.get_json()
     new_user = User(
@@ -29,7 +29,7 @@ def create_user():
     db.session.commit()
     return jsonify(new_user.json()), 201
 
-@bp.route('/users/<int:id>', methods=['PUT'])
+@user_bp.route('/users/<int:id>', methods=['PUT'])
 def update_user(id):
     data = request.get_json()
     user = User.query.get_or_404(id)
@@ -44,7 +44,7 @@ def update_user(id):
     db.session.commit()
     return jsonify(user.json())
 
-@bp.route('/users/<int:id>', methods=['DELETE'])
+@user_bp.route('/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user = User.query.get_or_404(id)
     db.session.delete(user)
