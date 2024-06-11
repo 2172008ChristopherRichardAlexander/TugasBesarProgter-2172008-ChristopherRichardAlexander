@@ -4,10 +4,10 @@ from sqlalchemy.ext.declarative import declarative_base
 
 db = SQLAlchemy()
 Base = declarative_base()
+app = Flask(__name__)
 def create_app():
-    app = Flask(__name__)
     app.config.from_object('config.Config')
-    
+
     db.init_app(app)
 
     from apps.routes.home_route import home_bp
@@ -19,7 +19,7 @@ def create_app():
     from apps.routes.faculty_routes import faculty_bp
     from apps.routes.department_route import department_bp
     from apps.routes.user_route import user_bp
-
+    
     app.register_blueprint(home_bp)
     app.register_blueprint(login_bp)
     app.register_blueprint(register_bp)

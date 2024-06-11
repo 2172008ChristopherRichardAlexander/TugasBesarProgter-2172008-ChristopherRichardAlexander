@@ -7,7 +7,7 @@ class Department(db.Model):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
-
+    user = db.relationship("User", back_populates="department")
     def json(self):
         return {
             'id': self.id,

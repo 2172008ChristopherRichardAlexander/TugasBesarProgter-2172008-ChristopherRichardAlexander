@@ -6,8 +6,7 @@
         <div class="card">
             <h3 class="card-header">Form Penambahan Kajian</h3>
             <div class="card-body">
-                <form enctype="multipart/form-data" method="post" action="/kajians/create">
-                    @csrf
+                <form enctype="multipart/form-data" method="post" action="/review/create">
                     <div class="form-group">
                         <label for="title">Judul:</label> <span class="text-danger">*</span>
                         <input type="text" class="form-control" name="title" id="title" placeholder="Input Judul" required>
@@ -21,8 +20,9 @@
                         <label for="file">File:</label> <span class="text-danger">*</span>
                         <input class="form-control" type="file" accept=".pdf" required name="file" id="file" placeholder="Link Sertifikat Wiratha">
                     </div>
+                    <input class="form-control" type="hidden" required name="member_id" id="file" value="{{current_user.id}}">
                     <div class="button mt-4 d-flex justify-content-end">
-                        <a href="/kajians" class="btn btn-danger me-2">Cancel</a>
+                        <a href="/review" class="btn btn-danger me-2">Cancel</a>
                         <input type="submit" class="btn btn-primary" value="Add">
                     </div>
                 </form>

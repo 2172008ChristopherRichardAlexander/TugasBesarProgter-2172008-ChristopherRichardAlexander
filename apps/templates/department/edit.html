@@ -1,0 +1,24 @@
+{% extends "layouts/master.html" %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pendaftaran.css') }}">
+    <div class="container d-flex justify-content-center my-5">
+        <div class="card">
+            <h3 class="card-header">Form Edit Department</h3>
+            <div class="card-body">
+                <form enctype="multipart/form-data" method="post" action="{{url_for('department.update_department', id=department.id) }}">
+                    <div class="form-group">
+                        <label for="name">Name:</label> <span class="text-danger">*</span>
+                        <input type="text"  value="{{ department.name }}" class="form-control" name="name" id="name" placeholder="Input Nama"
+                            required>
+                    </div>
+                    <div class="button mt-4 d-flex justify-content-end">
+                        <a href="/departments" class="btn btn-danger me-2">Cancel</a>
+                        <input type="submit" class="btn btn-primary" value="Add">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

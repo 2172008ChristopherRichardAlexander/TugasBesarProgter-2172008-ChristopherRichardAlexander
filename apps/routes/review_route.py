@@ -1,51 +1,66 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from apps import db
 from apps.models.review import Review
-
+from apps.function.file_placement import save_file, delete_files
 
 review_bp = Blueprint('review', __name__)
 
 @review_bp.route('/review')
 def review():
-    return render_template('/kajian/index.html')
+    reviews = Review.query.all()
+    return render_template('/review/index.html', reviews=reviews)
+
+@review_bp.route('/review/create', methods=['GET'])
+def create_review_page():
+    return render_template('/review/create.html')
 
 @review_bp.route('/reviews', methods=['GET'])
 def get_all_reviews():
     reviews = Review.query.all()
     return jsonify([review.json() for review in reviews])
 
-@review_bp.route('/reviews/<int:id>', methods=['GET'])
+
+@review_bp.route('/reviews/edit/<int:id>', methods=['GET'])
 def get_review(id):
     review = Review.query.get_or_404(id)
-    return jsonify(review.json())
+    return render_template('/review/edit.html', review=review)
 
-@review_bp.route('/reviews', methods=['POST'])
+@review_bp.route('/review/create', methods=['POST'])
 def create_review():
-    data = request.get_json()
+    data = request.form
+    files = request.files
+    file_name = data['title']
     new_review = Review(
-        member_id=data['member_id'],
-        title=data['title'],
-        desc=data['desc']
+        member_id = data['member_id'],
+        title = data['title'],
+        file = save_file(files.get('file'), file_name, 'file_review'),
+        cover = save_file(files.get('cover'), file_name, 'cover_review')
     )
     db.session.add(new_review)
     db.session.commit()
-    return jsonify(new_review.json()), 201
+    return redirect(url_for('review.review'))
 
-@review_bp.route('/reviews/<int:id>', methods=['PUT'])
+@review_bp.route('/reviews/edit/<int:id>', methods=['POST'])
 def update_review(id):
-    data = request.get_json()
     review = Review.query.get_or_404(id)
-    
-    review.member_id = data.get('member_id', review.member_id)
-    review.title = data.get('title', review.title)
-    review.desc = data.get('desc', review.desc)
+    data = request.form
+    files = request.files
+    review.title = data['title']
+    if files.get('file'):
+        if review.file:
+            delete_files([review.file])
+        review.file = save_file(files.get('file'))
 
     db.session.commit()
-    return jsonify(review.json())
+    return redirect(url_for('review.review'))
 
-@review_bp.route('/reviews/<int:id>', methods=['DELETE'])
+@review_bp.route('/reviews/delete/<int:id>')
 def delete_review(id):
     review = Review.query.get_or_404(id)
+    file_paths = [review.file]
+    delete_files(file_paths)
+    file_paths = [review.cover]
+    delete_files(file_paths)
     db.session.delete(review)
     db.session.commit()
-    return '', 204
+    return redirect(url_for('review.review'))

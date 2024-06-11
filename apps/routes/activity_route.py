@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, redirect, render_template, request, jsonify, url_for
+from apps.function.file_placement import delete_files, save_file
 from apps.models.activity import Activity
 from apps import db
 
@@ -6,7 +7,12 @@ activity_bp = Blueprint('activity', __name__)
 
 @activity_bp.route('/activity')
 def activity():
-    return render_template('/kegiatan/index.html')
+    activities = Activity.query.all()
+    return render_template('/activity/index.html', activities=activities)
+
+@activity_bp.route('/activities/create')
+def create_activity_view():
+    return render_template('/activity/create.html')
 
 @activity_bp.route('/activities', methods=['GET'])
 def get_all_activities():
@@ -16,35 +22,42 @@ def get_all_activities():
 @activity_bp.route('/activities/<int:id>', methods=['GET'])
 def get_activity(id):
     activity = Activity.query.get_or_404(id)
-    return jsonify(activity.json())
+    return render_template('/activity/edit.html', activity=activity)
 
-@activity_bp.route('/activities', methods=['POST'])
+@activity_bp.route('/activities/create', methods=['POST'])
 def create_activity():
-    data = request.get_json()
+    data = request.form
+    files = request.files
+    file_name = data['title']
     new_activity = Activity(
         member_id=data['member_id'],
         title=data['title'],
+        cover = save_file(files.get('cover'), file_name, 'cover_review'),
         desc=data['desc']
     )
     db.session.add(new_activity)
     db.session.commit()
-    return jsonify(new_activity.json()), 201
+    return redirect(url_for('activity.activity'))
 
-@activity_bp.route('/activities/<int:id>', methods=['PUT'])
+@activity_bp.route('/activities/<int:id>', methods=['POST'])
 def update_activity(id):
-    data = request.get_json()
+    data = request.form
+    files = request.files
     activity = Activity.query.get_or_404(id)
-    
-    activity.member_id = data.get('member_id', activity.member_id)
+    if files.get('cover'):
+        if activity.file:
+            delete_files([activity.file])
+        activity.file = save_file(files.get('file'))
     activity.title = data.get('title', activity.title)
     activity.desc = data.get('desc', activity.desc)
-
     db.session.commit()
-    return jsonify(activity.json())
+    return redirect(url_for('activity.activity'))
 
-@activity_bp.route('/activities/<int:id>', methods=['DELETE'])
+@activity_bp.route('/activities/delete/<int:id>')
 def delete_activity(id):
     activity = Activity.query.get_or_404(id)
+    file_paths = [activity.cover]
+    delete_files(file_paths)
     db.session.delete(activity)
     db.session.commit()
-    return '', 204
+    return redirect(url_for('activity.activity'))

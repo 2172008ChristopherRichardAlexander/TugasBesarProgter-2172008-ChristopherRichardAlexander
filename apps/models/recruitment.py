@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from apps import db
-
+from sqlalchemy.orm import relationship
 
 class Recruitment(db.Model):
     __tablename__ = 'recruitments'
@@ -23,6 +23,8 @@ class Recruitment(db.Model):
     status = Column(Boolean, nullable=False, default=False)
     department_id = Column(Integer, ForeignKey('departments.id'), nullable=False)
     alasan = Column(String(255), nullable=False)
+    department = db.relationship('Department', backref='recruitments')
+    faculty = db.relationship('Faculty', backref='recruitments')
 
     def json(self):
         return {

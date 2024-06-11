@@ -1,0 +1,54 @@
+{% extends "layouts/master.html" %}
+
+{% block content %}
+    <div class="container justify-content-center my-4" style="min-height: 40vh;">
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 text-center data">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NRP</th>
+                            <th>Name</th>
+                            <th>Telephone</th>
+                            <th>Gender</th>
+                            <th>Angkatan</th>
+                            <th>Fakultas</th>
+                            <th>Status</th>
+                                {%if current_user.is_admin%}
+                                    <th>Action</th>
+                                {%endif%}
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {%for recruitment in recruitments%}
+                                <tr>
+                                    <td>{{ recruitment.id }}</td>
+                                    <td>{{ recruitment.nrp }}</td>
+                                    <td>{{ recruitment.name }}</td>
+                                    <td>{{ recruitment.telephone }}</td>
+                                    <td>{{ recruitment.gender }}</td>
+                                    <td>{{ recruitment.angkatan }}</td>
+                                    <td>{{ recruitment.faculty.name }}</td>
+                                    {%if recruitment.status%}
+                                        <td>Diterima</td>
+                                    {%else%}
+                                        <td>Menunggu</td>
+                                    {% endif %}
+                                        {%if current_user.is_admin%}
+                                            <td>
+                                                <form action="{{url_for('register.update_recruitment', id=recruitment.id) }}" method="POST">
+                                                    <div class="btn-group">
+                                                        <button type="submit" class="btn btn-success mr-4 rounded-lg"><i class="fa fa-check"></i></button>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        {%endif%}
+                                </tr>
+                            {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -4,34 +4,32 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/pendaftaran.css') }}">
     <div class="container d-flex justify-content-center my-5">
         <div class="card">
-            <h3 class="card-header">Form Sunting Kajian</h3>
+            <h3 class="card-header">Edit review</h3>
             <div class="card-body">
-                {# 
-                    <form enctype="multipart/form-data" method="post" action="/kajians/edit/{{$kajian->id}}">
+                    <form enctype="multipart/form-data" method="post" action="{{url_for('review.update_review', id=review.id) }}">
                         <div class="form-group">
                             <label for="title">Judul:</label> <span class="text-danger">*</span>
-                            <input type="text" class="form-control" name="title" id="title" placeholder="Input Judul" value="{{$kajian->title}}" required>
+                            <input type="text" class="form-control" name="title" id="title" placeholder="Input Judul" value="{{review.title}}" required>
                         </div>
                         <div class="form-group mt-3">
                             <label for="cover">Cover:</label> 
-                            <input type="hidden" name='oldImage' value="{{ $kajian->cover }}">
-                            @if ($kajian->cover)    
-                                <img src="{{asset('storage/'.$kajian->cover)  }}" class="img-preview img-fluid mb-3" id="frame" style="max-height: 500px; overflow:hidden">
-                            @else
+                            <input type="hidden" name='oldImage' value="{{ review.cover }}">
+                            {%if review.cover%}  
+                                <img src="{{asset('storage/'.review.cover)  }}" class="img-preview img-fluid mb-3" id="frame" style="max-height: 500px; overflow:hidden">
+                            {%else%}
                                 <img src="" class="img-preview img-fluid mb-3" id="frame" style="max-height: 400px; overflow:hidden; max-width: 400px;">
-                            @endif
-                            <input class="form-control" type="file" accept="img/*" name="cover" id="cover" onchange="preview()" value="{{$kajian->cover}}">
+                            {%endif%}
+                            <input class="form-control" type="file" accept="img/*" name="cover" id="cover" onchange="preview()" value="{{review.cover}}">
                         </div>
                         <div class="form-group mt-3">
                             <label for="file">File:</label>
-                            <input class="form-control" type="file" accept=".pdf" name="file" id="file" value="{{$kajian->file}}">
+                            <input class="form-control" type="file" accept=".pdf" name="file" id="file" value="{{review.file}}">
                         </div>
                         <div class="button mt-4 d-flex justify-content-end">
-                            <button class="btn btn-danger me-2">Cancel</button>
+                            <a class="btn btn-danger me-2" href="{{ url_for('review.review') }}">Cancel</a>
                             <input type="submit" class="btn btn-primary" value="Update">
                         </div>
                     </form>
-                 #}
             </div>
         </div>
     </div>

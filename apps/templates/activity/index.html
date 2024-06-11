@@ -1,0 +1,52 @@
+{% extends "layouts/master.html" %}
+
+{% block content %}
+    <div class="container my-4">
+        {% if current_user.is_authenticated %}
+            <div class="d-flex justify-content-end mb-3">
+                <a href="/activities/create" class="btn btn-primary">Tambah Kegiatan</a>
+            </div>
+            {% endif %}
+        <div class="row d-flex justify-content-center">
+            {%for activity in activities%}
+                <div class="col-md-10 mx-4 my-3">
+                    <div class="card">
+                        <div class="row">
+                            {% if activity.cover %}
+                                <div class="col-md-4">
+                                    <img src="{{ url_for('static', filename='uploads/' + activity.title+ '/' + activity.cover) }}" class="card-img-top"
+                                        alt="{{ activity.name }}" style="object-fit: cover; object-position: center;"
+                                        width="350px" height="300px">
+                                </div>
+                            {%else%}
+                                <div class="col-md-4">
+                                    <img src="static/img/default.jpg" class="img-fluid rounded-start"
+                                        alt="{{ activity.name }}" style="object-fit: cover; object-position: center;">
+                                </div>
+                            {% endif %}
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title fs-1 mb-4">{{ activity.title }}</h5>
+                                    <p class="card-text">{{ activity.desc }}..</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        </div>
+                                        <div class="col-md-6 text-end p-4">
+                                            {% if current_user.is_authenticated %}
+                                                {% if (activity.member_id == current_user.id) or (current_user.is_admin) %}
+                                                <a href="{{ url_for('activity.get_activity', id=activity.id) }}" class="btn btn-warning me-1"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ url_for('activity.delete_activity', id=activity.id) }}" onclick="if(confirm('Apakah anda yakin ingin menghapus activity ini?')) { document.getElementById('delete-form-{{ activity.id }}').submit(); } return false;" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                {%endif%}
+                                            {%endif%}
+                                            <a class="btn btn-primary text-light" href="/kegiatan/{{ activity.id }}">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

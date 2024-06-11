@@ -1,0 +1,42 @@
+{% extends "layouts/master.html" %}
+
+{% block content %}
+<div class="container my-4">
+    {% if current_user.is_authenticated %}
+    <div class="d-flex justify-content-end">
+        <a href="/departments/create" class="btn btn-primary">Add department</a>
+    </div>
+    {% endif %}
+    <div class="container justify-content-center my-4" style="min-height: 40vh;">
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 text-center data">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            {%if current_user.is_admin%}
+                                <th>Action</th>
+                            {%endif%}
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {%for department in departments%}
+                                <tr>
+                                    <td>{{ department.id }}</td>
+                                    <td>{{ department.name }}</td>
+                                        {%if current_user.is_admin%}
+                                        <td>
+                                            <a href="{{ url_for('department.get_department', id=department.id) }}" class="btn btn-warning me-1"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ url_for('department.delete_department', id=department.id) }}" onclick="if(confirm('Apakah anda yakin ingin menghapus department ini?')) { document.getElementById('delete-form-{{ department.id }}').submit(); } return false;" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                        {%endif%}
+                                </tr>
+                            {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

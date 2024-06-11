@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, redirect, render_template, request, jsonify, url_for
 from apps.models.department import Department
 from apps import db
 
@@ -7,36 +7,38 @@ department_bp = Blueprint('department', __name__)
 @department_bp.route('/departments', methods=['GET'])
 def get_all_departments():
     departments = Department.query.all()
-    return jsonify([department.json() for department in departments])
+    return render_template('/department/index.html', departments=departments)
 
-@department_bp.route('/departments/<int:id>', methods=['GET'])
+@department_bp.route('/departments/edit/<int:id>', methods=['GET'])
 def get_department(id):
     department = Department.query.get_or_404(id)
-    return jsonify(department.json())
+    return render_template('/department/edit.html', department=department)
 
-@department_bp.route('/departments', methods=['POST'])
+@department_bp.route('/departments/create', methods=['GET'])
+def create_view_departments():
+    return render_template('/department/create.html')
+
+@department_bp.route('/departments/create', methods=['POST'])
 def create_department():
-    data = request.get_json()
+    data = request.form
     new_department = Department(
         name=data['name']
     )
     db.session.add(new_department)
     db.session.commit()
-    return jsonify(new_department.json()), 201
+    return redirect(url_for('department.get_all_departments'))
 
-@department_bp.route('/departments/<int:id>', methods=['PUT'])
+@department_bp.route('/departments/edit/<int:id>', methods=['POST'])
 def update_department(id):
-    data = request.get_json()
+    data = request.form
     department = Department.query.get_or_404(id)
-    
     department.name = data.get('name', department.name)
-
     db.session.commit()
-    return jsonify(department.json())
+    return redirect(url_for('department.get_all_departments'))
 
-@department_bp.route('/departments/<int:id>', methods=['DELETE'])
+@department_bp.route('/departments/delete/<int:id>')
 def delete_department(id):
     department = Department.query.get_or_404(id)
     db.session.delete(department)
     db.session.commit()
-    return '', 204
+    return redirect(url_for('department.get_all_departments'))

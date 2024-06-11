@@ -1,0 +1,42 @@
+{% extends "layouts/master.html" %}
+
+{% block content %}
+<div class="container my-4">
+    {% if current_user.is_authenticated %}
+    <div class="d-flex justify-content-end">
+        <a href="/faculties/create" class="btn btn-primary">Add faculty</a>
+    </div>
+    {% endif %}
+    <div class="container justify-content-center my-4" style="min-height: 40vh;">
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 text-center data">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            {%if current_user.is_admin%}
+                                <th>Action</th>
+                            {%endif%}
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {%for faculty in faculties%}
+                                <tr>
+                                    <td>{{ faculty.id }}</td>
+                                    <td>{{ faculty.name }}</td>
+                                        {%if current_user.is_admin%}
+                                        <td>
+                                            <a href="{{ url_for('faculty.get_faculty', id=faculty.id) }}" class="btn btn-warning me-1"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ url_for('faculty.delete_faculty', id=faculty.id) }}" onclick="if(confirm('Apakah anda yakin ingin menghapus fakultas ini?')) { document.getElementById('delete-form-{{ faculty.id }}').submit(); } return false;" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                        {%endif%}
+                                </tr>
+                            {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

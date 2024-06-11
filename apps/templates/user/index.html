@@ -1,0 +1,52 @@
+{% extends "layouts/master.html" %}
+
+{% block content %}
+<div class="container my-4">
+    {% if current_user.is_authenticated %}
+    <div class="d-flex justify-content-end">
+        <a href="/users/create" class="btn btn-primary">Add user</a>
+    </div>
+    {% endif %}
+    <div class="container justify-content-center my-4" style="min-height: 40vh;">
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 text-center data">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NRP</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Faculty</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {%for user in users%}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.nrp }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.faculty.name }}</td>
+                                    <td>{{ user.department.name }}</td>
+                                    {%if user.is_admin%}
+                                        <td>Admin</td>
+                                    {%else%}
+                                        <td>Member</td>
+                                    {% endif %}
+                                    <td>
+                                        <a href="{{ url_for('user.get_user', id=user.id) }}" class="btn btn-warning me-1"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ url_for('user.delete_user', id=user.id) }}" onclick="if(confirm('Apakah anda yakin ingin menghapus user ini?')) { document.getElementById('delete-form-{{ user.id }}').submit(); } return false;" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

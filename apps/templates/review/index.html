@@ -1,0 +1,62 @@
+{% extends "layouts/master.html" %}
+
+{% block content %}
+<div class="container my-4">
+        {% if current_user.is_authenticated %}
+        <div class="d-flex justify-content-end">
+            <a href="/review/create" class="btn btn-primary">Add review</a>
+        </div>
+        {% endif %}
+    <div class="row d-flex justify-content-center">
+            {%for review in reviews%}
+            <div class="col-md-3 mb-4">
+                <div class="card border border-secondary mt-4">
+                    <div style="overflow:hidden; height: 32vh">
+                        {%if review.cover%}
+                        <img class="card-img-top" height="100%" src="{{ review.cover }}">
+                        {% else %}
+                        <img class="card-img-top" height="100%" src="static/img/default.jpg">
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-weight: bold;">{{ review.title }}</h5>
+                        <h6>Author: {{review.user.name}}</h6>
+                        <div class="row mt-4">
+                            <div class="col-md-8 d-flex justify-content-start">
+                                {% if current_user.is_authenticated %}
+                                    {% if (review.member_id == current_user.id) or (current_user.is_admin) %}
+                                        <a href="{{ url_for('review.get_review', id=review.id) }}" class="btn btn-warning me-1"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ url_for('review.delete_review', id=review.id) }}" onclick="if(confirm('Apakah anda yakin ingin menghapus review ini?')) { document.getElementById('delete-form-{{ review.id }}').submit(); } return false;" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 d-flex justify-content-end">
+                                <a href="#" class="btn btn-primary" role="button" data-toggle="modal" download="{{ review.file }}">Read</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="pdfModal{{ review.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteConfirmationModalLabel">Isi review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                                {% if review.file %}
+                                <iframe src="{{ url_for('static', filename='uploads/' + review.title+ '/' + review.file) }}" width="100%" height="550px"></iframe>
+                                {% else %}
+                                {{ review.title }} belum memiliki isi
+                                {% endif %}                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %} 
+    </div>
+</div>
+{% endblock %}

@@ -39,14 +39,42 @@
                     <a data-mdb-ripple-init href="{{ url_for('review.review') }}" type="button" class="btn px-3 me-2 text-light">
                         Kajian
                     </a>
-                    <a data-mdb-ripple-init href="{{ url_for('register.register') }}" type="button" class="btn px-3 me-2 text-light">
-                        Pendaftaran
-                    </a>
-                        <a href="{{ url_for('login.login') }}" class="nav-link">
-                            <button data-mdb-ripple-init type="button" class="btn btn-light me-3" style="color: #2B6EB5;">
+                    {% if current_user.is_authenticated %}
+                        <a data-mdb-ripple-init href="{{ url_for('register.register_view') }}" type="button" class="btn px-3 me-2 text-light">
+                            Pendaftaran
+                        </a>
+                    {% else %}
+                        <a data-mdb-ripple-init href="{{ url_for('register.register') }}" type="button" class="btn px-3 me-2 text-light">
+                            Pendaftaran
+                        </a>
+                    {% endif %}
+                    {% if current_user.is_admin %}
+                    <div class="dropdown">
+                        <a data-mdb-ripple-init type="button" class="btn px-3 me-2 text-light dropdown-toggle"  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            Setting
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{ url_for('user.get_all_users') }}">Account</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('department.get_all_departments') }}">Departments</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('faculty.get_all_faculties') }}">Faculties</a></li>
+                          </ul>
+                    </div>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <form id="logout-form" action="{{ url_for('login.logout') }}" method="post">
+                        <a class="nav-link" onclick="{{url_for('login.logout')}}">
+                            <button type="submit" class="btn btn-light me-3" style="color: #2B6EB5;">
+                                {{ current_user.name }}
+                            </button>
+                        </a>
+                    </form>
+                    {% else %}
+                        <a href="{{ url_for('login.view') }}" class="nav-link">
+                            <button type="button" class="btn btn-light me-3" style="color: #2B6EB5;">
                                 Login Member
                             </button>
                         </a>
+                    {% endif %}
                     
                 </div>
             </div>
