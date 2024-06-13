@@ -60,6 +60,7 @@ def create_recruitment():
     db.session.commit()
     return render_template('/register/end.html')
 
+@login_required
 @register_bp.route('/recruitments/<int:id>', methods=['POST'])
 def update_recruitment(id):
     data = request.form

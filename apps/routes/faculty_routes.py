@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, jsonify, url_for
+from flask_login import login_required
 from apps.models.faculty import Faculty
 from apps import db
 
@@ -9,15 +10,18 @@ def get_all_faculties():
     faculties = Faculty.query.all()
     return render_template('/faculty/index.html', faculties=faculties)
 
+@login_required
 @faculty_bp.route('/faculties/edit/<int:id>', methods=['GET'])
 def get_faculty(id):
     faculty = Faculty.query.get_or_404(id)
     return render_template('/faculty/edit.html', faculty=faculty)
 
+@login_required
 @faculty_bp.route('/faculties/create', methods=['GET'])
 def create_view_departments():
     return render_template('/faculty/create.html')
 
+@login_required
 @faculty_bp.route('/faculties/create', methods=['POST'])
 def create_faculty():
     data = request.form
@@ -28,6 +32,7 @@ def create_faculty():
     db.session.commit()
     return redirect(url_for('faculty.get_all_faculties'))
 
+@login_required
 @faculty_bp.route('/faculties/edit/<int:id>', methods=['POST'])
 def update_faculty(id):
     data = request.form
@@ -36,6 +41,7 @@ def update_faculty(id):
     db.session.commit()
     return redirect(url_for('faculty.get_all_faculties'))
 
+@login_required
 @faculty_bp.route('/faculties/delete/<int:id>')
 def delete_faculty(id):
     faculty = Faculty.query.get_or_404(id)

@@ -68,16 +68,16 @@ CREATE TABLE `faculties` (
 -- Dumping data for table `faculties`
 --
 
-INSERT INTO `faculties` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Teknologi Informasi', '2024-01-14 08:21:52', '2024-01-14 08:21:52'),
-(2, 'Bisnis', '2024-01-14 08:21:52', '2024-01-14 08:21:52'),
-(3, 'Teknik', '2024-01-14 08:21:52', '2024-01-14 08:21:52'),
-(4, 'Bahasa & Budaya', '2024-01-14 08:21:52', '2024-01-14 08:21:52'),
-(5, 'Seni Rupa & Desain', '2024-01-14 08:21:52', '2024-01-14 08:21:52'),
-(6, 'Kedokteran', '2024-01-14 08:21:52', '2024-01-14 08:21:52'),
-(7, 'Kedokteran Gigi', '2024-01-14 08:21:52', '2024-01-14 08:21:52'),
-(8, 'Hukum', '2024-01-14 08:21:52', '2024-01-14 08:21:52'),
-(9, 'Psikologi', '2024-01-14 08:21:52', '2024-01-14 08:21:52');
+INSERT INTO `faculties` (`id`, `name`) VALUES
+(1, 'Teknologi dan Rekayasa cerdas'),
+(2, 'Bisnis'),
+(3, 'Teknik'),
+(4, 'Bahasa & Budaya'),
+(5, 'Seni Rupa & Desain'),
+(6, 'Kedokteran'),
+(7, 'Kedokteran Gigi'),
+(8, 'Hukum'),
+(9, 'Psikologi');
 
 -- --------------------------------------------------------
 
@@ -279,27 +279,26 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `nrp`, `name`, `email`, `password`, `isAdmin`, `department_id`, `faculty_id`, `created_at`, `updated_at`) VALUES
-(1, '2434272', 'Admin', 'admin@gmail.com', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 1, 4, 4, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(2, '2557795', 'Magnus Gislason PhD', 'cruickshank.kristian@example.com', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 7, 9, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(3, '2487339', 'Annabelle Larson', 'maybell49@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 2, 4, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(4, '2508394', 'Catharine McKenzie', 'bdoyle@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 2, 9, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(5, '2452272', 'Adrienne Jast', 'desmond.grady@example.com', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 6, 5, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(6, '2304933', 'Antonietta Borer IV', 'kasey.robel@example.net', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 11, 3, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(7, '2375476', 'Lucy Wiza DVM', 'kerdman@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 5, 8, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(8, '2391467', 'Dr. Herman Daniel', 'bonita.nolan@example.net', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 1, 2, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(9, '2292027', 'Fay Waters V', 'ukeebler@example.com', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 7, 2, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(10, '2229279', 'Berry Auer', 'sophie48@example.com', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 8, 8, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(11, '2246406', 'Dr. Nelda Johnson MD', 'alessandro.reichert@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 7, 8, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(12, '2518541', 'Dr. Maribel Lueilwitz', 'raynor.german@example.com', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 4, 4, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(13, '2291583', 'Brett Kuphal', 'wlabadie@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 9, 5, '2024-01-14 08:21:50', '2024-01-14 08:21:50'),
-(14, '2493571', 'Mustafa Bogisich', 'mathias17@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 1, 6, '2024-01-14 08:21:51', '2024-01-14 08:21:51'),
-(15, '2302065', 'Brooke Quigley', 'vkub@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 5, 7, '2024-01-14 08:21:51', '2024-01-14 08:21:51'),
-(16, '2353032', 'Mason Bahringer', 'thea.kihn@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 3, 3, '2024-01-14 08:21:51', '2024-01-14 08:21:51'),
-(17, '2209123', 'Blair Herman', 'dedrick.crist@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 1, 4, '2024-01-14 08:21:51', '2024-01-14 08:21:51'),
-(18, '2229489', 'Dr. Kurt Crona', 'cronin.elfrieda@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 7, 2, '2024-01-14 08:21:51', '2024-01-14 08:21:51'),
-(19, '2352860', 'Willow Bergnaum Jr.', 'thuel@example.org', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 2, 8, '2024-01-14 08:21:51', '2024-01-14 08:21:51'),
-(20, '2383675', 'Madelyn Eichmann', 'walter.eleanora@example.net', '$2y$12$PaOovbNe/.rZBCpdb.M9euh96HvXO4dHfVoJxJ9hvIBUgnh8faW6e', 0, 10, 3, '2024-01-14 08:21:51', '2024-01-14 08:21:51');
+INSERT INTO `users` (`nrp`, `name`, `email`, `password`, `is_admin`, `department_id`, `faculty_id`) VALUES
+('2557795', 'Magnus Gislason PhD', 'cruickshank.kristian@example.com', '12345', false, 7, 7),
+('2487339', 'Annabelle Larson', 'maybell49@example.org', '12345', false, 2, 4),
+('2508394', 'Catharine McKenzie', 'bdoyle@example.org', '12345', false, 2, 5),
+('2452272', 'Adrienne Jast', 'desmond.grady@example.com', '12345', false, 6, 5),
+('2304933', 'Antonietta Borer IV', 'kasey.robel@example.net', '12345', false, 11, 3),
+('2375476', 'Lucy Wiza DVM', 'kerdman@example.org', '12345', false, 5, 8),
+('2391467', 'Dr. Herman Daniel', 'bonita.nolan@example.net', '12345', false, 1, 2),
+('2292027', 'Fay Waters V', 'ukeebler@example.com', '12345', false, 7, 2),
+( '2229279', 'Berry Auer', 'sophie48@example.com', '12345', false, 8, 2),
+( '2246406', 'Dr. Nelda Johnson MD', 'alessandro.reichert@example.org', '12345', false, 7, 1),
+( '2518541', 'Dr. Maribel Lueilwitz', 'raynor.german@example.com', '12345', false, 4, 4),
+( '2291583', 'Brett Kuphal', 'wlabadie@example.org', '12345', false, 9, 5),
+( '2493571', 'Mustafa Bogisich', 'mathias17@example.org', '12345', false, 1, 6),
+( '2302065', 'Brooke Quigley', 'vkub@example.org', '12345', false, 5, 7),
+( '2353032', 'Mason Bahringer', 'thea.kihn@example.org', '12345', false, 3, 3),
+( '2209123', 'Blair Herman', 'dedrick.crist@example.org', '12345', false, 1, 4),
+( '2229489', 'Dr. Kurt Crona', 'cronin.elfrieda@example.org', '12345', false, 7, 2),
+( '2352860', 'Willow Bergnaum Jr.', 'thuel@example.org', '12345', false, 2, 8),
+( '2383675', 'Madelyn Eichmann', 'walter.eleanora@example.net', '12345', false, 10, 3);
 
 --
 -- Indexes for dumped tables

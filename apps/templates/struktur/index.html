@@ -17,7 +17,7 @@
                 </span>
             </div>
             <div class="row justify-content-center">
-                    {% for bph in bphs %}
+                    {%for bph in bphs[1:]:%}
                         <div class="card m-2 p-3 col-md-{ 12 / len(bphs) }" data-aos="zoom-in"
                             style="max-width: 18rem; border: none; background: linear-gradient(to bottom, #007bff, #0056b3);">
                             <img src="static/img/no_profile.png" class="card-img-top" alt="Card Image"

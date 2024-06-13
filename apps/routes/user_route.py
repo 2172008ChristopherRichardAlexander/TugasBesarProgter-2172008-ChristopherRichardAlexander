@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, jsonify, url_for
+from flask_login import login_required
 from apps.models.department import Department
 from apps.models.faculty import Faculty
 from apps.models.user import User
@@ -12,6 +13,7 @@ def get_all_users():
     users = User.query.all()
     return render_template('/user/index.html', users=users)
 
+@login_required
 @user_bp.route('/users/edit/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get_or_404(id)
@@ -19,12 +21,14 @@ def get_user(id):
     departments = Department.query.all()
     return render_template('/user/edit.html', user=user, faculties=faculties, departments=departments)
 
+@login_required
 @user_bp.route('/users/create', methods=['GET'])
 def create_view_departments():
     faculties = Faculty.query.all()
     departments = Department.query.all()
     return render_template('/user/create.html', faculties=faculties, departments=departments)
 
+@login_required
 @user_bp.route('/users/create', methods=['POST'])
 def create_user():
     data = request.form
@@ -41,6 +45,7 @@ def create_user():
     db.session.commit()
     return redirect(url_for('user.get_all_users'))
 
+@login_required
 @user_bp.route('/users/edit/<int:id>', methods=['POST'])
 def update_user(id):
     data = request.form
@@ -59,6 +64,7 @@ def update_user(id):
     db.session.commit()
     return redirect(url_for('user.get_all_users'))
 
+@login_required
 @user_bp.route('/users/delete/<int:id>')
 def delete_user(id):
     user = User.query.get_or_404(id)

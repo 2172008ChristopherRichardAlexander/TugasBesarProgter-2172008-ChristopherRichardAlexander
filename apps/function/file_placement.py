@@ -20,7 +20,7 @@ def save_file(file, folder_name, upload_type):
         os.makedirs(folder_path, exist_ok=True)
         file_path = os.path.join(folder_path, filename)
         file.save(file_path)
-        return file_path.replace("\\", '/')
+        return filename
     return None
 
 def delete_files(file_paths):

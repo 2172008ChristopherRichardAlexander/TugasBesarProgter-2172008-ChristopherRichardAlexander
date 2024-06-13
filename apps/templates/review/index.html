@@ -13,7 +13,7 @@
                 <div class="card border border-secondary mt-4">
                     <div style="overflow:hidden; height: 32vh">
                         {%if review.cover%}
-                        <img class="card-img-top" height="100%" src="{{ review.cover }}">
+                        <img class="card-img-top" height="100%" src="{{ url_for('static', filename='uploads/cover_review/' + review.title+ '/' + review.cover) }}">
                         {% else %}
                         <img class="card-img-top" height="100%" src="static/img/default.jpg">
                         {% endif %}
@@ -48,7 +48,7 @@
                         </div>
                         <div class="modal-body">
                                 {% if review.file %}
-                                <iframe src="{{ url_for('static', filename='uploads/' + review.title+ '/' + review.file) }}" width="100%" height="550px"></iframe>
+                                <iframe src="{{ url_for('static', filename='uploads/file_review/' + review.title+ '/' + review.file) }}" width="100%" height="550px"></iframe>
                                 {% else %}
                                 {{ review.title }} belum memiliki isi
                                 {% endif %}                  

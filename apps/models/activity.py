@@ -10,7 +10,7 @@ class Activity(db.Model):
     member_id = Column(Integer, ForeignKey('users.id'))
     title = Column(String, nullable=False)
     cover = Column(String, nullable=True)
-    desc = Column(String, nullable=False, unique=True)
+    desc = Column(String, nullable=False)
     user = db.relationship('User', backref='activities')
     def json(self):
         return {

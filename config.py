@@ -7,7 +7,9 @@ class Config:
     DEBUG = True
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     
-    BASE_UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    STATIC_FOLDER = os.path.join(BASE_DIR, 'apps', 'static')
+    BASE_UPLOAD_FOLDER = os.path.join(STATIC_FOLDER, 'uploads')
     UPLOAD_FOLDER_REGISTER = os.path.join(BASE_UPLOAD_FOLDER, 'register')
     UPLOAD_FOLDER_COVER_ACTIVITY = os.path.join(BASE_UPLOAD_FOLDER, 'cover_activity')
     UPLOAD_FOLDER_COVER_REVIEW = os.path.join(BASE_UPLOAD_FOLDER, 'cover_review')
